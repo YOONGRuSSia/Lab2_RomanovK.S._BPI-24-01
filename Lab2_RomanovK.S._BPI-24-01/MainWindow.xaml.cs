@@ -1,30 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Lab2_RomanovK.S._BPI_24_01
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private static readonly Brush ErrorBrush = new SolidColorBrush(Color.FromRgb(211, 47, 47));
-        private static readonly Brush NormalBrush = null;
-
         private readonly Dictionary<TextBox, Brush> _originalBorders = new Dictionary<TextBox, Brush>();
 
         private static readonly Dictionary<string, string> FieldDisplayNames = new Dictionary<string, string>
@@ -52,36 +38,67 @@ namespace Lab2_RomanovK.S._BPI_24_01
             Img4.Source = ImageHelper.BytesToImage(new Formula4().Source);
             Img5.Source = ImageHelper.BytesToImage(new Formula5().Source);
 
+            // Начальное состояние темы
+            if (App.CurrentTheme == AppTheme.Dark)
+                rbDark.IsChecked = true;
+            else
+                rbLight.IsChecked = true;
+
             UpdateInputStates();
+        }
+
+        private void Theme_Checked(object sender, RoutedEventArgs e)
+        {
+            if (!(sender is RadioButton rb)) return;
+            if (rb.Tag == null) return;
+
+            AppTheme theme = rb.Tag.ToString() == "Dark"
+                ? AppTheme.Dark
+                : AppTheme.Light;
+
+            App.ApplyTheme(theme);
+        }
+
+        private void Minimize_Click(object sender, RoutedEventArgs e)
+            => WindowState = WindowState.Minimized;
+
+        private void Maximize_Click(object sender, RoutedEventArgs e)
+            => WindowState = WindowState == WindowState.Maximized
+                ? WindowState.Normal
+                : WindowState.Maximized;
+
+        private void Close_Click(object sender, RoutedEventArgs e) => Close();
+
+        private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2)
+                Maximize_Click(sender, e);
         }
 
         private void Radio_Checked(object sender, RoutedEventArgs e)
-        {
-            UpdateInputStates();
-        }
+            => UpdateInputStates();
 
         private void UpdateInputStates()
         {
+            if (R1Group == null) return;
+
             R1Group.IsEnabled = Radio1.IsChecked == true;
             R2Group.IsEnabled = Radio2.IsChecked == true;
             R3Group.IsEnabled = Radio3.IsChecked == true;
             R4Group.IsEnabled = Radio4.IsChecked == true;
             R5Group.IsEnabled = Radio5.IsChecked == true;
 
-            CalcButton.IsEnabled = Radio1.IsChecked == true ||
-                                   Radio2.IsChecked == true ||
-                                   Radio3.IsChecked == true ||
-                                   Radio4.IsChecked == true ||
-                                   Radio5.IsChecked == true;
+            CalcButton.IsEnabled =
+                Radio1.IsChecked == true ||
+                Radio2.IsChecked == true ||
+                Radio3.IsChecked == true ||
+                Radio4.IsChecked == true ||
+                Radio5.IsChecked == true;
         }
-
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (sender is TextBox tb)
-            {
-                ValidateTextBox(tb);
-            }
+            if (sender is TextBox tb) ValidateTextBox(tb);
         }
 
         private bool ValidateTextBox(TextBox tb)
@@ -163,14 +180,12 @@ namespace Lab2_RomanovK.S._BPI_24_01
             return true;
         }
 
-
         private void MarkInvalid(TextBox tb, string friendlyName, string reason)
         {
             if (!_originalBorders.ContainsKey(tb))
-            {
                 _originalBorders[tb] = tb.BorderBrush;
-            }
 
+            tb.Tag = "error";                      
             tb.BorderBrush = ErrorBrush;
             tb.BorderThickness = new Thickness(2);
             tb.ToolTip = $"{friendlyName}: {reason}";
@@ -188,9 +203,9 @@ namespace Lab2_RomanovK.S._BPI_24_01
         private void MarkValid(TextBox tb)
         {
             if (_originalBorders.TryGetValue(tb, out var original))
-            {
                 tb.BorderBrush = original;
-            }
+
+            tb.Tag = null;                     
             tb.ToolTip = null;
         }
 

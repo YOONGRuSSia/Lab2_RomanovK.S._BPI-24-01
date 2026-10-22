@@ -6,237 +6,317 @@
         xmlns:local="clr-namespace:Lab2_RomanovK.S._BPI_24_01"
         mc:Ignorable="d"
         Title="Решение уравнений"
-        Height="480" Width="750"
+        Height="640" Width="900"
+        MinWidth="800" MinHeight="560"
         WindowStartupLocation="CenterScreen"
         Style="{StaticResource WindowStyle}">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <Border Background="{DynamicResource WindowBackgroundBrush}"
+            BorderBrush="{DynamicResource BorderBrushDark}"
+            BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-            <StackPanel>
+            <Border Grid.Row="0"
+                    Background="{DynamicResource HeaderGradient}"
+                    Height="42"
+                    MouseLeftButtonDown="TitleBar_MouseDown">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                <RadioButton Name="Radio1" Margin="5" Checked="Radio_Checked"
-                             Foreground="{DynamicResource PrimaryColor}">
-                    <WrapPanel>
-                        <Image Name="Img1" Height="30" Margin="5"/>
-                        <GroupBox Name="R1Group" Header="Параметры" Margin="5" IsEnabled="False"
-                                  Foreground="{DynamicResource PrimaryColor}"
-                                  BorderBrush="{DynamicResource BorderColor}">
-                            <WrapPanel Orientation="Horizontal">
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="a" Grid.Row="0" Grid.Column="0"
-                                           Foreground="{DynamicResource PrimaryColor}"
-                                           FontWeight="SemiBold" FontSize="13"/>
-                                    <TextBox Name="R1TextA" MinWidth="70"
-                                             Grid.Row="0" Grid.Column="1"
-                                             Style="{StaticResource InputStyle}"
-                                             LostFocus="TextBox_LostFocus"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="f" Grid.Row="1" Grid.Column="0"
-                                           Foreground="{DynamicResource PrimaryColor}"
-                                           FontWeight="SemiBold" FontSize="13"/>
-                                    <ComboBox Name="R1ComboF" SelectedIndex="0"
-                                              Grid.Row="1" Grid.Column="1"
-                                              Background="{DynamicResource White}"
-                                              Foreground="{DynamicResource TextColor}"
-                                              BorderBrush="{DynamicResource BorderColor}">
-                                        <ComboBoxItem Content="4"/>
-                                        <ComboBoxItem Content="5"/>
-                                        <ComboBoxItem Content="6"/>
-                                        <ComboBoxItem Content="7"/>
-                                        <ComboBoxItem Content="8"/>
-                                        <ComboBoxItem Content="9"/>
-                                    </ComboBox>
-                                </StackPanel>
-                            </WrapPanel>
-                        </GroupBox>
-                    </WrapPanel>
-                </RadioButton>
+                    <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                Margin="15,0,0,0"
+                                WindowChrome.IsHitTestVisibleInChrome="True">
+                        <RadioButton x:Name="rbDark"
+                                     Content="Тёмная"
+                                     GroupName="Theme"
+                                     Style="{StaticResource ThemeRadioStyle}"
+                                     Checked="Theme_Checked"
+                                     Tag="Dark"/>
+                        <RadioButton x:Name="rbLight"
+                                     Content="Светлая"
+                                     GroupName="Theme"
+                                     Style="{StaticResource ThemeRadioStyle}"
+                                     Checked="Theme_Checked"
+                                     Tag="Light"/>
+                    </StackPanel>
 
-                <RadioButton Name="Radio2" Margin="5" Checked="Radio_Checked"
-                             Foreground="{DynamicResource PrimaryColor}">
-                    <WrapPanel>
-                        <Image Name="Img2" Height="23" Margin="5"/>
-                        <GroupBox Name="R2Group" Header="Параметры" Margin="5" IsEnabled="False"
-                                  Foreground="{DynamicResource PrimaryColor}"
-                                  BorderBrush="{DynamicResource BorderColor}">
-                            <WrapPanel Orientation="Horizontal">
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="a" Foreground="{DynamicResource PrimaryColor}"
-                                           FontWeight="SemiBold" FontSize="13"/>
-                                    <TextBox Name="R2TextA" MinWidth="70"
-                                             Style="{StaticResource InputStyle}"
-                                             LostFocus="TextBox_LostFocus"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="b" Foreground="{DynamicResource PrimaryColor}"
-                                           FontWeight="SemiBold" FontSize="13"/>
-                                    <TextBox Name="R2TextB" MinWidth="70"
-                                             Style="{StaticResource InputStyle}"
-                                             LostFocus="TextBox_LostFocus"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="f" Foreground="{DynamicResource PrimaryColor}"
-                                           FontWeight="SemiBold" FontSize="13"/>
-                                    <ComboBox Name="R2ComboF" SelectedIndex="0" MinWidth="100"
-                                              Background="{DynamicResource White}"
-                                              Foreground="{DynamicResource TextColor}"
-                                              BorderBrush="{DynamicResource BorderColor}">
-                                        <ComboBoxItem Content="10"/>
-                                        <ComboBoxItem Content="20"/>
-                                        <ComboBoxItem Content="30"/>
-                                        <ComboBoxItem Content="40"/>
-                                    </ComboBox>
-                                </StackPanel>
-                            </WrapPanel>
-                        </GroupBox>
-                    </WrapPanel>
-                </RadioButton>
+                    <TextBlock Grid.Column="1"
+                               Text="Решение уравнений"
+                               Foreground="{DynamicResource AccentTextBrush}"
+                               FontSize="14"
+                               FontWeight="SemiBold"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
 
-                <RadioButton Name="Radio3" Margin="5" Checked="Radio_Checked"
-                             Foreground="{DynamicResource PrimaryColor}">
-                    <WrapPanel>
-                        <Image Name="Img3" Height="30" Margin="5"/>
-                        <GroupBox Name="R3Group" Header="Параметры" Margin="5" IsEnabled="False"
-                                  Foreground="{DynamicResource PrimaryColor}"
-                                  BorderBrush="{DynamicResource BorderColor}">
-                            <WrapPanel Orientation="Horizontal">
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="a" Foreground="{DynamicResource PrimaryColor}"
-                                           FontWeight="SemiBold" FontSize="13"/>
-                                    <TextBox Name="R3TextA" MinWidth="50"
-                                             Style="{StaticResource InputStyle}"
-                                             LostFocus="TextBox_LostFocus"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="b" Foreground="{DynamicResource PrimaryColor}"
-                                           FontWeight="SemiBold" FontSize="13"/>
-                                    <TextBox Name="R3TextB" MinWidth="50"
-                                             Style="{StaticResource InputStyle}"
-                                             LostFocus="TextBox_LostFocus"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="c" Foreground="{DynamicResource PrimaryColor}"
-                                           FontWeight="SemiBold" FontSize="13"/>
-                                    <ComboBox Name="R3ComboC" SelectedIndex="0" MinWidth="50"
-                                              Background="{DynamicResource White}"
-                                              Foreground="{DynamicResource TextColor}"
-                                              BorderBrush="{DynamicResource BorderColor}">
-                                        <ComboBoxItem Content="0"/>
-                                        <ComboBoxItem Content="1"/>
-                                    </ComboBox>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="d" Foreground="{DynamicResource PrimaryColor}"
-                                           FontWeight="SemiBold" FontSize="13"/>
-                                    <ComboBox Name="R3ComboD" SelectedIndex="1" MinWidth="70"
-                                              Background="{DynamicResource White}"
-                                              Foreground="{DynamicResource TextColor}"
-                                              BorderBrush="{DynamicResource BorderColor}">
-                                        <ComboBoxItem Content="-1"/>
-                                        <ComboBoxItem Content="0"/>
-                                        <ComboBoxItem Content="1"/>
-                                    </ComboBox>
-                                </StackPanel>
-                            </WrapPanel>
-                        </GroupBox>
-                    </WrapPanel>
-                </RadioButton>
+                    <StackPanel Grid.Column="2"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                WindowChrome.IsHitTestVisibleInChrome="True">
+                        <Button Content="—"
+                                Style="{StaticResource TitleBarButtonStyle}"
+                                Click="Minimize_Click"/>
+                        <Button Content="□"
+                                Style="{StaticResource TitleBarButtonStyle}"
+                                Click="Maximize_Click"/>
+                        <Button Content="✕"
+                                Style="{StaticResource TitleBarCloseButtonStyle}"
+                                Click="Close_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
 
-                <RadioButton Name="Radio4" Margin="5" Checked="Radio_Checked"
-                             Foreground="{DynamicResource PrimaryColor}">
-                    <WrapPanel>
-                        <Image Name="Img4" Height="60" Margin="5"/>
-                        <GroupBox Name="R4Group" Header="Параметры" Margin="5" IsEnabled="False"
-                                  Foreground="{DynamicResource PrimaryColor}"
-                                  BorderBrush="{DynamicResource BorderColor}">
-                            <WrapPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="c" Foreground="{DynamicResource PrimaryColor}"
-                                           FontWeight="SemiBold" FontSize="13"/>
-                                    <ComboBox Name="R4ComboC" SelectedIndex="0" MinWidth="70"
-                                              Background="{DynamicResource White}"
-                                              Foreground="{DynamicResource TextColor}"
-                                              BorderBrush="{DynamicResource BorderColor}">
-                                        <ComboBoxItem Content="0"/>
-                                        <ComboBoxItem Content="1"/>
-                                        <ComboBoxItem Content="2"/>
-                                        <ComboBoxItem Content="3"/>
-                                        <ComboBoxItem Content="4"/>
-                                        <ComboBoxItem Content="5"/>
-                                    </ComboBox>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="d" Foreground="{DynamicResource PrimaryColor}"
-                                           FontWeight="SemiBold" FontSize="13"/>
-                                    <TextBox Name="R4TextD" MinWidth="70"
-                                             Style="{StaticResource InputStyle}"
-                                             LostFocus="TextBox_LostFocus"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="a" Foreground="{DynamicResource PrimaryColor}"
-                                           FontWeight="SemiBold" FontSize="13"/>
-                                    <TextBox Name="R4TextA" MinWidth="70"
-                                             Style="{StaticResource InputStyle}"
-                                             LostFocus="TextBox_LostFocus"/>
-                                </StackPanel>
-                            </WrapPanel>
-                        </GroupBox>
-                    </WrapPanel>
-                </RadioButton>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="10">
+                <StackPanel>
 
-                <RadioButton Name="Radio5" Margin="5" Checked="Radio_Checked"
-                             Foreground="{DynamicResource PrimaryColor}">
-                    <WrapPanel>
-                        <Image Name="Img5" Height="40" Margin="5"/>
-                        <GroupBox Name="R5Group" Header="Параметры" Margin="5" IsEnabled="False"
-                                  Foreground="{DynamicResource PrimaryColor}"
-                                  BorderBrush="{DynamicResource BorderColor}">
-                            <WrapPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="N" Foreground="{DynamicResource PrimaryColor}"
-                                           FontWeight="SemiBold" FontSize="13"/>
-                                    <TextBox Name="R5TextN" MinWidth="50"
-                                             Style="{StaticResource InputStyle}"
-                                             LostFocus="TextBox_LostFocus"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="K" Foreground="{DynamicResource PrimaryColor}"
-                                           FontWeight="SemiBold" FontSize="13"/>
-                                    <TextBox Name="R5TextK" MinWidth="50"
-                                             Style="{StaticResource InputStyle}"
-                                             LostFocus="TextBox_LostFocus"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="x" Foreground="{DynamicResource PrimaryColor}"
-                                           FontWeight="SemiBold" FontSize="13"/>
-                                    <TextBox Name="R5TextX" MinWidth="50"
-                                             Style="{StaticResource InputStyle}"
-                                             LostFocus="TextBox_LostFocus"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="y" Foreground="{DynamicResource PrimaryColor}"
-                                           FontWeight="SemiBold" FontSize="13"/>
-                                    <TextBox Name="R5TextY" MinWidth="50"
-                                             Style="{StaticResource InputStyle}"
-                                             LostFocus="TextBox_LostFocus"/>
-                                </StackPanel>
-                            </WrapPanel>
-                        </GroupBox>
-                    </WrapPanel>
-                </RadioButton>
+                    <Border Style="{StaticResource PanelStyle}" Margin="5">
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Выберите формулу"
+                                       Style="{StaticResource PanelTitleStyle}"/>
 
-            </StackPanel>
-        </ScrollViewer>
+                            <RadioButton Name="Radio1" Margin="5"
+                                         Style="{StaticResource FormulaRadioStyle}"
+                                         Checked="Radio_Checked">
+                                <WrapPanel>
+                                    <Image Name="Img1" Height="30" Margin="5"/>
+                                    <GroupBox Name="R1Group" Header="Параметры"
+                                              Style="{StaticResource GroupBoxStyle}"
+                                              IsEnabled="False">
+                                        <WrapPanel Orientation="Horizontal">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="a"
+                                                       Foreground="{DynamicResource AccentBrush}"
+                                                       FontWeight="SemiBold" FontSize="13"/>
+                                                <TextBox Name="R1TextA" MinWidth="70"
+                                                         Style="{StaticResource InputStyle}"
+                                                         LostFocus="TextBox_LostFocus"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="f"
+                                                       Foreground="{DynamicResource AccentBrush}"
+                                                       FontWeight="SemiBold" FontSize="13"/>
+                                                <ComboBox Name="R1ComboF" SelectedIndex="0"
+                                                          MinWidth="70"
+                                                          Style="{StaticResource ComboBoxStyle}">
+                                                    <ComboBoxItem Content="4"/>
+                                                    <ComboBoxItem Content="5"/>
+                                                    <ComboBoxItem Content="6"/>
+                                                    <ComboBoxItem Content="7"/>
+                                                    <ComboBoxItem Content="8"/>
+                                                    <ComboBoxItem Content="9"/>
+                                                </ComboBox>
+                                            </StackPanel>
+                                        </WrapPanel>
+                                    </GroupBox>
+                                </WrapPanel>
+                            </RadioButton>
 
-        <Button Grid.Row="1" Name="CalcButton" Content="Считать" Width="100" Margin="10"
-                Click="Calc_Click" IsEnabled="False"
-                Style="{StaticResource ButtonStyle}"
-                HorizontalAlignment="Center"/>
-    </Grid>
+                            <RadioButton Name="Radio2" Margin="5"
+                                         Style="{StaticResource FormulaRadioStyle}"
+                                         Checked="Radio_Checked">
+                                <WrapPanel>
+                                    <Image Name="Img2" Height="23" Margin="5"/>
+                                    <GroupBox Name="R2Group" Header="Параметры"
+                                              Style="{StaticResource GroupBoxStyle}"
+                                              IsEnabled="False">
+                                        <WrapPanel Orientation="Horizontal">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="a"
+                                                       Foreground="{DynamicResource AccentBrush}"
+                                                       FontWeight="SemiBold" FontSize="13"/>
+                                                <TextBox Name="R2TextA" MinWidth="70"
+                                                         Style="{StaticResource InputStyle}"
+                                                         LostFocus="TextBox_LostFocus"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="b"
+                                                       Foreground="{DynamicResource AccentBrush}"
+                                                       FontWeight="SemiBold" FontSize="13"/>
+                                                <TextBox Name="R2TextB" MinWidth="70"
+                                                         Style="{StaticResource InputStyle}"
+                                                         LostFocus="TextBox_LostFocus"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="f"
+                                                       Foreground="{DynamicResource AccentBrush}"
+                                                       FontWeight="SemiBold" FontSize="13"/>
+                                                <ComboBox Name="R2ComboF" SelectedIndex="0" MinWidth="70"
+                                                          Style="{StaticResource ComboBoxStyle}">
+                                                    <ComboBoxItem Content="10"/>
+                                                    <ComboBoxItem Content="20"/>
+                                                    <ComboBoxItem Content="30"/>
+                                                    <ComboBoxItem Content="40"/>
+                                                </ComboBox>
+                                            </StackPanel>
+                                        </WrapPanel>
+                                    </GroupBox>
+                                </WrapPanel>
+                            </RadioButton>
+
+                            <RadioButton Name="Radio3" Margin="5"
+                                         Style="{StaticResource FormulaRadioStyle}"
+                                         Checked="Radio_Checked">
+                                <WrapPanel>
+                                    <Image Name="Img3" Height="30" Margin="5"/>
+                                    <GroupBox Name="R3Group" Header="Параметры"
+                                              Style="{StaticResource GroupBoxStyle}"
+                                              IsEnabled="False">
+                                        <WrapPanel Orientation="Horizontal">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="a"
+                                                       Foreground="{DynamicResource AccentBrush}"
+                                                       FontWeight="SemiBold" FontSize="13"/>
+                                                <TextBox Name="R3TextA" MinWidth="50"
+                                                         Style="{StaticResource InputStyle}"
+                                                         LostFocus="TextBox_LostFocus"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="b"
+                                                       Foreground="{DynamicResource AccentBrush}"
+                                                       FontWeight="SemiBold" FontSize="13"/>
+                                                <TextBox Name="R3TextB" MinWidth="50"
+                                                         Style="{StaticResource InputStyle}"
+                                                         LostFocus="TextBox_LostFocus"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="c"
+                                                       Foreground="{DynamicResource AccentBrush}"
+                                                       FontWeight="SemiBold" FontSize="13"/>
+                                                <ComboBox Name="R3ComboC" SelectedIndex="0" MinWidth="60"
+                                                          Style="{StaticResource ComboBoxStyle}">
+                                                    <ComboBoxItem Content="0"/>
+                                                    <ComboBoxItem Content="1"/>
+                                                </ComboBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="d"
+                                                       Foreground="{DynamicResource AccentBrush}"
+                                                       FontWeight="SemiBold" FontSize="13"/>
+                                                <ComboBox Name="R3ComboD" SelectedIndex="1" MinWidth="70"
+                                                          Style="{StaticResource ComboBoxStyle}">
+                                                    <ComboBoxItem Content="-1"/>
+                                                    <ComboBoxItem Content="0"/>
+                                                    <ComboBoxItem Content="1"/>
+                                                </ComboBox>
+                                            </StackPanel>
+                                        </WrapPanel>
+                                    </GroupBox>
+                                </WrapPanel>
+                            </RadioButton>
+
+                            <RadioButton Name="Radio4" Margin="5"
+                                         Style="{StaticResource FormulaRadioStyle}"
+                                         Checked="Radio_Checked">
+                                <WrapPanel>
+                                    <Image Name="Img4" Height="60" Margin="5"/>
+                                    <GroupBox Name="R4Group" Header="Параметры"
+                                              Style="{StaticResource GroupBoxStyle}"
+                                              IsEnabled="False">
+                                        <WrapPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="c"
+                                                       Foreground="{DynamicResource AccentBrush}"
+                                                       FontWeight="SemiBold" FontSize="13"/>
+                                                <ComboBox Name="R4ComboC" SelectedIndex="0" MinWidth="70"
+                                                          Style="{StaticResource ComboBoxStyle}">
+                                                    <ComboBoxItem Content="0"/>
+                                                    <ComboBoxItem Content="1"/>
+                                                    <ComboBoxItem Content="2"/>
+                                                    <ComboBoxItem Content="3"/>
+                                                    <ComboBoxItem Content="4"/>
+                                                    <ComboBoxItem Content="5"/>
+                                                </ComboBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="d"
+                                                       Foreground="{DynamicResource AccentBrush}"
+                                                       FontWeight="SemiBold" FontSize="13"/>
+                                                <TextBox Name="R4TextD" MinWidth="70"
+                                                         Style="{StaticResource InputStyle}"
+                                                         LostFocus="TextBox_LostFocus"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="a"
+                                                       Foreground="{DynamicResource AccentBrush}"
+                                                       FontWeight="SemiBold" FontSize="13"/>
+                                                <TextBox Name="R4TextA" MinWidth="70"
+                                                         Style="{StaticResource InputStyle}"
+                                                         LostFocus="TextBox_LostFocus"/>
+                                            </StackPanel>
+                                        </WrapPanel>
+                                    </GroupBox>
+                                </WrapPanel>
+                            </RadioButton>
+
+                            <RadioButton Name="Radio5" Margin="5"
+                                         Style="{StaticResource FormulaRadioStyle}"
+                                         Checked="Radio_Checked">
+                                <WrapPanel>
+                                    <Image Name="Img5" Height="40" Margin="5"/>
+                                    <GroupBox Name="R5Group" Header="Параметры"
+                                              Style="{StaticResource GroupBoxStyle}"
+                                              IsEnabled="False">
+                                        <WrapPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="N"
+                                                       Foreground="{DynamicResource AccentBrush}"
+                                                       FontWeight="SemiBold" FontSize="13"/>
+                                                <TextBox Name="R5TextN" MinWidth="50"
+                                                         Style="{StaticResource InputStyle}"
+                                                         LostFocus="TextBox_LostFocus"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="K"
+                                                       Foreground="{DynamicResource AccentBrush}"
+                                                       FontWeight="SemiBold" FontSize="13"/>
+                                                <TextBox Name="R5TextK" MinWidth="50"
+                                                         Style="{StaticResource InputStyle}"
+                                                         LostFocus="TextBox_LostFocus"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="x"
+                                                       Foreground="{DynamicResource AccentBrush}"
+                                                       FontWeight="SemiBold" FontSize="13"/>
+                                                <TextBox Name="R5TextX" MinWidth="50"
+                                                         Style="{StaticResource InputStyle}"
+                                                         LostFocus="TextBox_LostFocus"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="y"
+                                                       Foreground="{DynamicResource AccentBrush}"
+                                                       FontWeight="SemiBold" FontSize="13"/>
+                                                <TextBox Name="R5TextY" MinWidth="50"
+                                                         Style="{StaticResource InputStyle}"
+                                                         LostFocus="TextBox_LostFocus"/>
+                                            </StackPanel>
+                                        </WrapPanel>
+                                    </GroupBox>
+                                </WrapPanel>
+                            </RadioButton>
+
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+            </ScrollViewer>
+
+            <Border Grid.Row="2" Style="{StaticResource PanelStyle}" Margin="15,5,15,15">
+                <Button Name="CalcButton" Content="Считать" Width="140" Margin="10"
+                        Click="Calc_Click" IsEnabled="False"
+                        Style="{StaticResource ButtonStyle}"
+                        HorizontalAlignment="Center"/>
+            </Border>
+
+        </Grid>
+    </Border>
 </Window>
